@@ -38,6 +38,7 @@ dependencies:
   provider: ^6.1.2
   google_fonts: ^6.1.0
   fl_chart: ^0.70.2
+  u_credit_card: ^1.4.0
 
 dev_dependencies:
   flutter_test:

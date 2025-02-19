@@ -13,26 +13,28 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Row(
-          children: [
-            CircleAvatar(
-              radius: 20,
-              backgroundImage: AssetImage('assets/images/avatar.png'),
-            ),
-            SizedBox(width: 10),
-              Text("Hello Richy !", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black)),
-          ],
-        ),
-        actions: [
-          IconButton(icon: Icon(Icons.search, color: Colors.black),
-          onPressed: () {
-
-          },
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Row(
+            children: [
+              CircleAvatar(
+                radius: 20,
+                backgroundImage: AssetImage('assets/images/avatar.png'),
+              ),
+              SizedBox(width: 10),
+              Text("Hello Richy !",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
+            ],
           ),
-        ]
-      ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search, color: Colors.black),
+              onPressed: () {},
+            ),
+          ]),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -47,45 +49,43 @@ class HomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
-                
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                       Text("Richy account",
-                      style: TextStyle(color: Colors.white70)),
+                      Text("Richy account",
+                          style: TextStyle(color: Colors.white70)),
                       Text("Arian zesan",
-                      style: TextStyle(color: Colors.white70)),
+                          style: TextStyle(color: Colors.white70)),
                     ],
                   ),
                   SizedBox(height: 10),
-
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                        Text("\$${provider.totalBalance.toStringAsFixed(2)}",
-                      style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                          textAlign: TextAlign.center,
-                          ),
-                  SizedBox(height: 5),
-                  Text("Total balance",
-                      style: TextStyle(color: Colors.white70)),
+                      Text(
+                        "\$${provider.totalBalance.toStringAsFixed(2)}",
+                        style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 5),
+                      Text("Total balance",
+                          style: TextStyle(color: Colors.white70)),
                     ],
                   ),
                   SizedBox(height: 10),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       Text("Added card: 05",
-                      style: TextStyle(color: Colors.white70)),
+                          style: TextStyle(color: Colors.white70)),
                       Text("Ac. no. 2234521",
-                      style: TextStyle(color: Colors.white70)),
-                  ],
-                ),
+                          style: TextStyle(color: Colors.white70)),
+                    ],
+                  ),
                 ],
               ),
             ),
