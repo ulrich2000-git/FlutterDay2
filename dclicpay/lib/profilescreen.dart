@@ -8,23 +8,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String selectedCard = "Physical ebl card"; // Par défaut, carte sélectionnée
+  String selectedCard = "Physical ebl card"; 
   double amount = 75.00;
   bool isAgreed = false;
-
-  final List<Map<String, String>> cards = [
-    {"name": "Physical ebl card", "image": "assets/images/mastercard.png"},
-    {"name": "Virtual ebl card", "image": "assets/images/visa.png"},
-    {"name": "Ebl", "image": "assets/images/ebl.png"},
-  ];
-
-  final List<String> recipients = [
-    "assets/images/avatar1.png",
-    "assets/images/avatar2.png",
-    "assets/images/avatar3.png",
-    "assets/images/avatar4.png",
-  ];
-  get recipientController => null;
+  final TextEditingController recipientController = TextEditingController(); // TextField fonctionne
 
   @override
   Widget build(BuildContext context) {
@@ -53,161 +40,154 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-      child:
-       Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Column(
+      body: SingleChildScrollView( //Permet de scroller pour éviter le débordement
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Column(
+                  children: [
+                    Divider(thickness: 3, color: Colors.grey[300], indent: 100, endIndent: 100),
+                    SizedBox(height: 10),
+                    Text("Send money", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // Select Card Section
+              Text("Select card", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              SizedBox(height: 10),
+              Row(
                 children: [
-                  Divider(thickness: 3, color: Colors.grey[300], indent: 100, endIndent: 100),
-                  SizedBox(height: 10),
-                  Text("Send money", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                  _buildCardButton("Physical ebl card"),
+                  SizedBox(width: 10),
+                  _buildCardButton("Virtual ebl card"),
+                  SizedBox(width: 10),
+                  _buildCardButton("Ebl"),
                 ],
               ),
-            ),
-            SizedBox(height: 20),
 
-            // Select Card Section
-            Text("Select card", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            SizedBox(height: 10),
-            Row(
-              children: cards.map((card) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedCard = card["name"]!;
-                    });
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    margin: EdgeInsets.only(right: 10),
-                    decoration: BoxDecoration(
-                      color: selectedCard == card["name"] ? Colors.blue : Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      children: [
-                        Image.asset(card["image"]!, height: 20),
-                        SizedBox(width: 5),
-                        Text(
-                          card["name"]!,
-                          style: TextStyle(
-                            color: selectedCard == card["name"] ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
+              SizedBox(height: 20),
 
-            SizedBox(height: 20),
-
-            // Choose Recipient
-            Text("Choose recipient", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            SizedBox(height: 10),
-            TextField(
-              controller: recipientController,
-              decoration: InputDecoration(
-                hintText: "Type name/card/phone number/email",
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              // Choose Recipient
+              Text("Choose recipient", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              SizedBox(height: 10),
+              TextField(
+                controller: recipientController, // ✅ Permet d'écrire du texte
+                decoration: InputDecoration(
+                  hintText: "Type name/card/phone number/email",
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                ),
               ),
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: recipients.map((img) {
-                return CircleAvatar(radius: 30, backgroundImage: AssetImage(img));
-              }).toList(),
-            ),
 
-            SizedBox(height: 20),
+              SizedBox(height: 20),
 
-            // Amount Section
-            Text("Amount", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            SizedBox(height: 10),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(12),
+              // Amount Section
+              Text("Amount", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              SizedBox(height: 10),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "\$${amount.toStringAsFixed(2)}",
+                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    Slider(
+                      value: amount,
+                      min: 0,
+                      max: 1000,
+                      divisions: 100,
+                      label: "\$${amount.toStringAsFixed(2)}",
+                      onChanged: (value) {
+                        setState(() {
+                          amount = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
-              child: Column(
+
+              SizedBox(height: 10),
+
+              // Terms & Conditions ✅ Fonctionnelle
+              Row(
                 children: [
-                  Text(
-                    "\$${amount.toStringAsFixed(2)}",
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
-                  Slider(
-                    value: amount,
-                    min: 0,
-                    max: 1000,
-                    divisions: 100,
-                    label: "\$${amount.toStringAsFixed(2)}",
+                  Checkbox(
+                    value: isAgreed,
                     onChanged: (value) {
                       setState(() {
-                        amount = value;
+                        isAgreed = value!;
                       });
                     },
                   ),
+                  Expanded(
+                    child: Text("Agree with ideate’s terms and conditions"),
+                  ),
                 ],
               ),
-            ),
 
-            SizedBox(height: 10),
+              SizedBox(height: 20),
 
-            // Terms & Conditions
-            Row(
-              children: [
-                Checkbox(
-                  value: isAgreed,
-                  onChanged: (value) {
-                    setState(() {
-                      isAgreed = value!;
-                    });
-                  },
-                ),
-              Expanded:(
-                child: Text("Agree with ideate’s terms and conditions"),
-                ),
-              ],
-            ),
-
-            SizedBox(height: 20),
-
-            // Send Money Button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: isAgreed
-                    ? () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Money sent successfully!")),
-                        );
-                      }
-                    : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+              // Send Money Button ✅ Fonctionnel
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: isAgreed
+                      ? () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Money sent successfully!")),
+                          );
+                        }
+                      : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: isAgreed ? Colors.blue : Colors.grey, // ✅ Désactivé si case non cochée
+                    padding: EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
+                  child: Text("Send money", style: TextStyle(fontSize: 18, color: Colors.white)),
                 ),
-                child: Text("Send money", style: TextStyle(fontSize: 18, color: Colors.white)),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    )
+    );
+  }
+
+  Widget _buildCardButton(String cardName) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedCard = cardName;
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: selectedCard == cardName ? Colors.blue : Colors.grey[200],
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Text(
+          cardName,
+          style: TextStyle(
+            color: selectedCard == cardName ? Colors.white : Colors.black,
+          ),
+        ),
+      ),
     );
   }
 }
