@@ -40,17 +40,64 @@ class _WalletScreenState extends State<WalletScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Wallets", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        title: Text("Wallets",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         centerTitle: true,
         actions: [
-          IconButton(icon: Icon(Icon.add_circle_outline, size: 28,),
-            onPressed: () {
-            },
+          IconButton(
+            icon: Icon(
+              Icons.add_circle_outline,
+              size: 28,
+            ),
+            onPressed: () {},
           ),
         ],
         elevation: 0,
       ),
-      
-    );
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children:
+                  cards.map((card) {
+                    return Expanded(
+                      child: Card(
+                        color: card["color"],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Padding(padding: const EdgeInsets.all(16),
+                        child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                            Text(card["type"], style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                            SizedBox(height: 10),
+
+                            Text("Number", style: TextStyle(color: Colors.grey )),
+                            Text(card["number"], style: TextStyle(fontSize: 16)),
+                            SizedBox(height: 10),
+
+                            Text("Exp.", style: TextStyle(color: Colors.grey)),
+                            //Text(card["Exp"], style: TextStyle(fontSize: 16)),
+                            SizedBox(height: 15),
+
+                            Text("Current Balance", style: TextStyle(color: Colors.grey)),
+                            Text("\$${card["balance"].toStringAsFixed(2)}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                           ],
+                        ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+          ),
+              ]),
+
+
+          ),
+        ),
+      );
   }
 }
