@@ -23,7 +23,7 @@ class TransactionList extends StatelessWidget {
           trailing: Text(
             "${transaction.amount > 0 ? '+' : '-'} \$${transaction.amount.abs().toStringAsFixed(2)}",
             style: TextStyle(
-              color: transaction.amount > 0 ? Colors.green : Colors.red,
+              color: transaction.amount > 0 ? Colors.blue : Colors.red,
               fontWeight: FontWeight.bold,
             ),
           ),
