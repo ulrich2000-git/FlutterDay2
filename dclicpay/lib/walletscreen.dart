@@ -1,3 +1,4 @@
+//import 'package:fl_chart/fl_chart.dart';
 import 'package:u_credit_card/u_credit_card.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,7 @@ class MyHomePage extends StatelessWidget {
            IconButton(
             icon: Icon(
               Icons.add_circle_outline,
-              size: 28,
+              size: 30,
             ),
             onPressed: () {},
           ),
@@ -41,10 +42,13 @@ class MyHomePage extends StatelessWidget {
          elevation: 0,
         ),
         
-      body: const Center(
-        child: CreditCardUi(
+      body:  ListView(
+        padding: EdgeInserts.all(20),
+        children: [
+        Center( 
+         child: CreditCardUi(
           width: 300,
-          cardHolderFullName: 'John Doe',
+          cardHolderFullName: 'Ulrich MIDJINDOU',
           cardNumber: '1234567812345678',
           validFrom: '01/23',
           validThru: '01/28',
@@ -61,6 +65,33 @@ class MyHomePage extends StatelessWidget {
           cvvNumber: '123',
         ),
       ),
+      SizedBox(height: 20),
+      Row(
+          children: [
+            Text("Total spending")
+          ],
+      ),
+      SizedBox(height: 10),
+      Container(
+        width: 20,
+        height: 20,
+        color: Colors.grey.withAlpha(50),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+           Text("Day"),
+           Text("Week"),
+           Text("Month"),
+           Text("Custom rang"),
+        ],
+        ),
+      ),
+
+        ],
+      ),
     );
   }
+}
+
+class EdgeInserts {
+  static all(int i) {}
 }
