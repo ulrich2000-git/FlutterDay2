@@ -1,3 +1,4 @@
+import 'package:dclicpay/giftscreen.dart';
 import 'package:dclicpay/send_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -122,7 +123,12 @@ class HomeScreen extends StatelessWidget {
                     child: Text("Receive"),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => GiftScreen()));
+                    },
                     child: Text("Rewards"),
                   ),
                 ],
