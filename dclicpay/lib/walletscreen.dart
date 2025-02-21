@@ -32,14 +32,6 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int selectedPeriodIndex = 1; 
-  final List<String> periods = ["Day", "Week", "Month", "Custom Range"];
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -90,34 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   "Total spending",
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-
-                const SizedBox(height: 10),
-
-                Center(
-                  child: ToggleButtons(
-                    borderRadius: BorderRadius.circular(10),
-                    selectedBorderColor: Colors.purple,
-                    selectedColor: Colors.white,
-                    fillColor: Colors.purple,
-                    color: Colors.black,
-                    isSelected: List.generate(
-                      periods.length,
-                      (index) => index == selectedPeriodIndex,
-                    ),
-                    onPressed: (index) {
-                      setState(() {
-                        selectedPeriodIndex = index;
-                      });
-                    },
-                    children: periods
-                        .map((e) => Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 12),
-                              child: Text(e, style: const TextStyle(fontSize: 14)),
-                            ))
-                        .toList(),
-                  ),
-                ),
-
                 const SizedBox(height: 20),
 
                 Container(
