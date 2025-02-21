@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/transaction.dart';
+import '../providers/transaction_provider.dart';
 
 class SendScreen extends StatefulWidget {
   const SendScreen({super.key});
@@ -12,7 +15,46 @@ class _SendScreenState extends State<SendScreen> {
   double amount = 75.00;
   bool isAgreed = false;
   final TextEditingController recipientController = TextEditingController();
-  String? recipientError; // Gérer l'erreur du TextField
+  String? recipientError;
+
+  void _sendTransaction() {
+    String recipient = recipientController.text.trim();
+
+    if (recipient.isEmpty) {
+      setState(() {
+        recipientError = "Please enter recipient details";
+      });
+      return;
+    }
+
+    recipientError = null;
+
+    print("Transaction envoyée à : $recipient");
+    print("Montant : \$${amount.toStringAsFixed(2)}");
+
+    Transaction newTransaction = Transaction(
+      id: 0,
+      name: recipient,
+      amount: -amount,
+      date: DateTime.now(),
+      avatar: "assets/images/avatar.png",
+    );
+
+    Provider.of<TransactionProvider>(context, listen: false).addTransaction(newTransaction);
+
+    setState(() {
+      recipientController.clear();
+      amount = 0.00;
+      selectedCard = "Physical ebl card";
+      isAgreed = false;
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Money sent successfully!")),
+    );
+
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +100,6 @@ class _SendScreenState extends State<SendScreen> {
               ),
               SizedBox(height: 20),
 
-              // Select Card Section
               Text("Select card", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               SingleChildScrollView(
@@ -71,14 +112,12 @@ class _SendScreenState extends State<SendScreen> {
                     SizedBox(width: 10),
                     _buildCardButton("Ebl crypto currency"),
                     SizedBox(width: 10),
-                    _buildCardButton("Another Card"), // Ajout d'une carte supplémentaire
+                    _buildCardButton("Another Card"), 
                   ],
                 ),
               ),
-
               SizedBox(height: 20),
 
-              // Choose Recipient
               Text("Choose recipient", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               TextField(
@@ -87,13 +126,11 @@ class _SendScreenState extends State<SendScreen> {
                   hintText: "Type name/card/phone number/email",
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                  errorText: recipientError, // Message d'erreur si champ vide
+                  errorText: recipientError, 
                 ),
               ),
-
               SizedBox(height: 20),
 
-              // Amount section
               Text("Amount", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               Container(
@@ -125,10 +162,8 @@ class _SendScreenState extends State<SendScreen> {
                   ],
                 ),
               ),
-
               SizedBox(height: 10),
 
-              // Terms et conditions
               Row(
                 children: [
                   Checkbox(
@@ -144,35 +179,14 @@ class _SendScreenState extends State<SendScreen> {
                   ),
                 ],
               ),
-
               SizedBox(height: 20),
 
-              // Send Money button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: isAgreed
-                      ? () {
-                          setState(() {
-                            if (recipientController.text.isEmpty) {
-                              recipientError = "Please enter recipient details"; // Message d'erreur
-                            } else {
-                              recipientError = null; // Effacer le message d'erreur
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Money sent successfully!")),
-                              );
-
-                              // Réinitialisation des valeurs après l'envoi
-                              recipientController.clear();
-                              amount = 75.00;
-                              selectedCard = "Physical ebl card";
-                              isAgreed = false;
-                            }
-                          });
-                        }
-                      : null,
+                  onPressed: isAgreed ? _sendTransaction : null,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isAgreed ? Colors.blue : Colors.grey, // Désactivé si la case n'est pas cochée
+                    backgroundColor: isAgreed ? Colors.blue : Colors.grey,
                     padding: EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),

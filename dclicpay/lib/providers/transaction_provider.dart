@@ -1,57 +1,52 @@
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
+import '../database/database_helper.dart';
 
 class TransactionProvider with ChangeNotifier {
   double totalBalance = 6190.00;
+  List<Transaction> transactions = [];
 
-  List<Transaction> transactions = [
-    Transaction(
-        name: "Miradie",
-        amount: 1190.00,
-        date: DateTime(2025, 1, 22),
-        avatar: "assets/miradie.png"),
-    Transaction(
-        name: "Emeric",
-        amount: -75.00,
-        date: DateTime(2025, 1, 21),
-        avatar: "assets/emeric.png"),
-    Transaction(
-        name: "Nelly",
-        amount: -220.00,
-        date: DateTime(2025, 1, 20),
-        avatar: "assets/nelly.png"),
-    Transaction(
-        name: "Silas",
-        amount: 2000.00,
-        date: DateTime(2025, 1, 19),
-        avatar: "assets/silas.png"),
-    Transaction(
-        name: "Fanny",
-        amount: 3000.00,
-        date: DateTime(2025, 1, 19),
-        avatar: "assets/silas.png"),
-    Transaction(
-        name: "Fredi",
-        amount: 2500.00,
-        date: DateTime(2025, 1, 19),
-        avatar: "assets/silas.png"),
-    Transaction(
-        name: "Richard",
-        amount: 900.00,
-        date: DateTime(2025, 1, 19),
-        avatar: "assets/silas.png"),
-    Transaction(
-        name: "Honorine",
-        amount: 100.00,
-        date: DateTime(2025, 1, 19),
-        avatar: "assets/silas.png"),
-  ];
+  TransactionProvider() {
+    loadTransactions();
+  }
 
-  void addTransaction(Transaction transaction) {
-    transactions.insert(0, transaction);
-    totalBalance += transaction.amount;
+  Future<void> loadTransactions() async {
+    transactions = await DatabaseHelper.instance.getTransactions();
+    totalBalance = transactions.isNotEmpty
+        ? transactions.fold(0, (sum, item) => sum + item.amount)
+        : 6190.00;
+
+    print("Total Balance: $totalBalance");
+    print("Transactions chargées dans le provider : $transactions");
+
     notifyListeners();
   }
 
-  void filterTransactions(String selectedFilter) {}
+  Future<void> addTransaction(Transaction transaction) async {
+    int id = await DatabaseHelper.instance.insert(transaction);
+    transaction.id = id;
+    await loadTransactions();
+    print("Nouvelle balance apres ajout: $totalBalance");
+    notifyListeners();
+  }
+
+  Future<void> deleteTransaction(int id) async {
+    await DatabaseHelper.instance.delete(id);
+    await loadTransactions();
+  }
+
+  void filterTransactions(String selectedFilter) {
+    loadTransactions();
+
+    if (selectedFilter == 'All') {
+      return;
+    } else {
+      transactions = transactions
+          .where((transaction) =>
+              (selectedFilter == 'Income' && transaction.amount > 0) ||
+              (selectedFilter == 'Expenses' && transaction.amount < 0))
+          .toList();
+      notifyListeners();
+    }
+  }
 }
