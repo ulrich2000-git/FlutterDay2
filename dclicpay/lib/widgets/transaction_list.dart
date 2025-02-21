@@ -19,7 +19,7 @@ class TransactionList extends StatelessWidget {
             backgroundImage: AssetImage(transaction.avatar),
           ),
           title: Text(transaction.name, style: TextStyle(fontWeight: FontWeight.bold)),
-          subtitle: Text("${transaction.date.day} ${_monthName(transaction.date.month)} ${transaction.date.year} - 22h42"),
+          //subtitle: Text("${transaction.date.day} ${_monthName(transaction.date.month)} ${transaction.date.year} - 22h42"),
           trailing: Text(
             "${transaction.amount > 0 ? '+' : '-'} \$${transaction.amount.abs().toStringAsFixed(2)}",
             style: TextStyle(

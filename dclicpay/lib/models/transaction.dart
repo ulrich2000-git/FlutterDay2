@@ -2,14 +2,14 @@ class Transaction {
   int? id;
   String name;
   double amount;
-  DateTime date;
+  //DateTime date;
   String avatar;
 
   Transaction({
     this.id,
     required this.name,
     required this.amount,
-    required this.date,
+    //required this.date,
     required this.avatar,
   });
 
@@ -17,7 +17,7 @@ class Transaction {
     return {
       'name': name,
       'amount': amount,
-      'date': date.now(),
+      //'date': date,
       'avatar': avatar,
     };
   }
@@ -27,12 +27,8 @@ class Transaction {
       id: map['id'],
       name: map['name'],
       amount: map['amount'],
-      date: DateTime.parse(map['date']),
+      //date:map['date'],
       avatar: map['avatar'],
     );
   }
-}
-
-extension on DateTime {
-  now() {}
 }

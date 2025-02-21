@@ -36,7 +36,7 @@ class _SendScreenState extends State<SendScreen> {
       id: 0,
       name: recipient,
       amount: -amount,
-      date: DateTime.now(),
+      //date: DateTime.now(),
       avatar: "assets/images/avatar.png",
     );
 
