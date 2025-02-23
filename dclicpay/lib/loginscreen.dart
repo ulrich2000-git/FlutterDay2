@@ -41,9 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Veuillez entrer votre email";
+                        return "Please enter your mail";
                       } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                        return "Email invalide";
+                        return "Invalide email";
                       }
                       return null;
                     },
@@ -52,16 +52,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextFormField(
                     controller: passwordController,
                     decoration: InputDecoration(
-                      labelText: "Mot de passe",
+                      labelText: "Password",
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.lock),
                     ),
                     obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Veuillez entrer votre mot de passe";
+                        return "Please enter your password";
                       } else if (value.length < 6) {
-                        return "Le mot de passe doit avoir au moins 6 caractères";
+                        return "Your password must have at least 6 caracters";
                       }
                       return null;
                     },
@@ -70,20 +70,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // Simuler une connexion réussie et rediriger vers la page principale
                         Navigator.pushReplacementNamed(context, '/');
                       }
                     },
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     ),
-                    child: Text("Se connecter"),
+                    child: Text("Connecte"),
                   ),
                   TextButton(
                     onPressed: () {
                       // Ajouter une navigation vers une page de récupération de mot de passe
                     },
-                    child: Text("Mot de passe oublié ?"),
+                    child: Text("Password forgotten ?"),
                   ),
                 ],
               ),

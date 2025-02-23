@@ -18,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Modifier $title"),
+          title: Text("Modified $title"),
           content: TextField(
             controller: controller,
             decoration: InputDecoration(
@@ -30,7 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Annuler"),
+              child: Text("Cancel"),
             ),
             ElevatedButton(
               onPressed: () {
@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 });
                 Navigator.pop(context);
               },
-              child: Text("Enregistrer"),
+              child: Text("Save"),
             ),
           ],
         );
@@ -50,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Profil')), 
+      appBar: AppBar(title: Text('Profile')), 
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -61,28 +61,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
               backgroundImage: AssetImage('assets/profile.png'),
             ),
             SizedBox(height: 16),
-            Text('John Doe', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text('Ulrich MIDJINDOU', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             SizedBox(height: 8),
-            Text('johndoe@example.com', style: TextStyle(color: Colors.grey)),
+            Text('ulrich@example.com', style: TextStyle(color: Colors.grey)),
             SizedBox(height: 16),
             Divider(),
 
-            _buildProfileOption(Icons.phone, 'Téléphone', phoneNumber, (newValue) {
+            _buildProfileOption(Icons.phone, 'Telephone', phoneNumber, (newValue) {
               setState(() => phoneNumber = newValue);
             }),
 
-            _buildProfileOption(Icons.account_balance_wallet, 'Solde', balance, (newValue) {
+            _buildProfileOption(Icons.account_balance_wallet, 'Balance', balance, (newValue) {
               setState(() => balance = newValue);
             }),
 
-            _buildProfileOption(Icons.payment, 'Mode de paiement', paymentMethod, (newValue) {
+            _buildProfileOption(Icons.payment, 'Payment method', paymentMethod, (newValue) {
               setState(() => paymentMethod = newValue);
             }),
 
             ListTile(
               leading: Icon(Icons.security, color: Colors.blue),
               title: Text('2FA', style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text(is2FAEnabled ? "Activé" : "Désactivé"),
+              subtitle: Text(is2FAEnabled ? "Activated" : "Off"),
               trailing: Switch(
                 value: is2FAEnabled,
                 onChanged: (value) {
@@ -99,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.pushReplacementNamed(context, '/login');
               },
               icon: Icon(Icons.logout),
-              label: Text('Déconnexion'),
+              label: Text('Disconnect'),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
             ),
           ],

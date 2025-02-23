@@ -29,8 +29,8 @@ class _SendScreenState extends State<SendScreen> {
 
     recipientError = null;
 
-    print("Transaction envoyée à : $recipient");
-    print("Montant : \$${amount.toStringAsFixed(2)}");
+    print("Transaction sent to : $recipient");
+    print("Amount : \$${amount.toStringAsFixed(2)}");
 
     Transaction newTransaction = Transaction(
       id: 0,
@@ -40,7 +40,8 @@ class _SendScreenState extends State<SendScreen> {
       avatar: "assets/images/avatar.png",
     );
 
-    Provider.of<TransactionProvider>(context, listen: false).addTransaction(newTransaction);
+    Provider.of<TransactionProvider>(context, listen: false)
+        .addTransaction(newTransaction);
 
     setState(() {
       recipientController.clear();
@@ -72,7 +73,10 @@ class _SendScreenState extends State<SendScreen> {
             SizedBox(width: 10),
             Text(
               "Hello Richy !",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
             ),
           ],
         ),
@@ -92,15 +96,21 @@ class _SendScreenState extends State<SendScreen> {
               Center(
                 child: Column(
                   children: [
-                    Divider(thickness: 3, color: Colors.grey[300], indent: 100, endIndent: 100),
+                    Divider(
+                        thickness: 3,
+                        color: Colors.grey[300],
+                        indent: 100,
+                        endIndent: 100),
                     SizedBox(height: 10),
-                    Text("Send money", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                    Text("Send money",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
               SizedBox(height: 20),
-
-              Text("Select card", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text("Select card",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -112,26 +122,27 @@ class _SendScreenState extends State<SendScreen> {
                     SizedBox(width: 10),
                     _buildCardButton("Ebl crypto currency"),
                     SizedBox(width: 10),
-                    _buildCardButton("Another Card"), 
+                    _buildCardButton("Another Card"),
                   ],
                 ),
               ),
               SizedBox(height: 20),
-
-              Text("Choose recipient", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text("Choose recipient",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               TextField(
                 controller: recipientController,
                 decoration: InputDecoration(
                   hintText: "Type name/card/phone number/email",
                   prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                  errorText: recipientError, 
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  errorText: recipientError,
                 ),
               ),
               SizedBox(height: 20),
-
-              Text("Amount", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text("Amount",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               Container(
                 width: double.infinity,
@@ -144,7 +155,8 @@ class _SendScreenState extends State<SendScreen> {
                   children: [
                     Text(
                       "\$${amount.toStringAsFixed(2)}",
-                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 10),
                     Slider(
@@ -163,7 +175,6 @@ class _SendScreenState extends State<SendScreen> {
                 ),
               ),
               SizedBox(height: 10),
-
               Row(
                 children: [
                   Checkbox(
@@ -180,7 +191,6 @@ class _SendScreenState extends State<SendScreen> {
                 ],
               ),
               SizedBox(height: 20),
-
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -192,7 +202,8 @@ class _SendScreenState extends State<SendScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: Text("Send money", style: TextStyle(fontSize: 18, color: Colors.white)),
+                  child: Text("Send money",
+                      style: TextStyle(fontSize: 18, color: Colors.white)),
                 ),
               ),
             ],

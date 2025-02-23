@@ -9,9 +9,9 @@ class _GiftScreenState extends State<GiftScreen> {
   int giftPoints = 2500;
 
   final List<GiftItem> gifts = [
-    GiftItem("Carte cadeau Amazon", "assets/amazon_gift.png", 1000),
-    GiftItem("Abonnement Spotify", "assets/spotify.png", 1500),
-    GiftItem("Réduction sur frais de transaction", "assets/discount.png", 500),
+    GiftItem("Amazon gift card", "assets/amazon_gift.png", 1000),
+    GiftItem("Spotify subscription", "assets/spotify.png", 1500),
+    GiftItem("Discount on transaction fees", "assets/discount.png", 500),
     GiftItem("Cashback \$5", "assets/cashback.png", 2000),
   ];
 
@@ -21,9 +21,9 @@ class _GiftScreenState extends State<GiftScreen> {
         giftPoints -= cost;
       });
 
-      _showSnackBar("Cadeau échangé avec succès ! 🎉", Colors.green);
+      _showSnackBar("Gift successfully exchanged ! 🎉", Colors.green);
     } else {
-      _showSnackBar("Points insuffisants ❌", Colors.red);
+      _showSnackBar("Insufficient points ❌", Colors.red);
     }
   }
 
@@ -36,14 +36,14 @@ class _GiftScreenState extends State<GiftScreen> {
         ),
       );
     } catch (e) {
-      debugPrint("Erreur Snackbar : $e");
+      debugPrint("Snackbar error : $e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Cadeaux')),
+      appBar: AppBar(title: Text('Rewards')),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -51,7 +51,7 @@ class _GiftScreenState extends State<GiftScreen> {
           children: [
             _buildPointsCard(),
             SizedBox(height: 20),
-            Text("Choisissez un cadeau 🎁", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text("Choose a gift 🎁", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             Expanded(
               child: ListView.builder(
                 itemCount: gifts.length,
@@ -79,7 +79,7 @@ class _GiftScreenState extends State<GiftScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Mes Points 🎯", style: TextStyle(color: Colors.white, fontSize: 18)),
+                Text("My points 🎯", style: TextStyle(color: Colors.white, fontSize: 18)),
                 SizedBox(height: 5),
                 Text("$giftPoints pts", style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
               ],
@@ -103,7 +103,7 @@ class _GiftScreenState extends State<GiftScreen> {
         trailing: ElevatedButton(
           onPressed: () => _redeemGift(gift.pointsCost),
           style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
-          child: Text("Échanger"),
+          child: Text("Exchange"),
         ),
       ),
     );
